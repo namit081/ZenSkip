@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ZenSkip</string>
+    <string name="accessibility_service_description">Automatically clicks the Skip Ad button in YouTube.</string>
+</resources>
