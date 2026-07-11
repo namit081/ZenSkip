@@ -18,3 +18,10 @@ local.properties
 .gradle/
 build/
 app/build/
+
+screen.png
+test.html
+logcat_filtered.txt
+zenskip.keystore
+.idea/
+
