@@ -46,6 +46,9 @@ public class AutoSkipHelper {
     static boolean isSkipText(String s) {
         if (s == null) return false;
         String lower = s.toLowerCase().trim();
+        // Remove punctuation to handle things like "Skip!", "Skip ad." or "Skip >"
+        lower = lower.replaceAll("[^a-z0-9 ]", "").trim();
+        
         return lower.contains("skip ad") || 
                lower.contains("skip video") || 
                lower.equals("skip");
