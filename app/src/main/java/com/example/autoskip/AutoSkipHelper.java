@@ -45,23 +45,29 @@ public class AutoSkipHelper {
 
     private static boolean isSkipText(String s) {
         if (s == null) return false;
-        String lower = s.toLowerCase();
-        return lower.contains("skip ad") || lower.contains("skip ads");
+        String lower = s.toLowerCase().trim();
+        return lower.contains("skip ad") || 
+               lower.contains("skip ads") || 
+               lower.contains("skip video") || 
+               lower.equals("skip") ||
+               (lower.contains("skip") && lower.length() <= 12);
     }
 
     private static boolean tryClick(AccessibilityNodeInfo node) {
-        if (node.isClickable()) {
-            return node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-        } else {
-            AccessibilityNodeInfo parent = node.getParent();
-            if (parent != null) {
-                boolean result = false;
-                if (parent.isClickable()) {
-                    result = parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        AccessibilityNodeInfo current = node;
+        while (current != null) {
+            if (current.isClickable()) {
+                boolean result = current.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                if (current != node) {
+                    current.recycle();
                 }
-                parent.recycle();
                 return result;
             }
+            AccessibilityNodeInfo parent = current.getParent();
+            if (current != node) {
+                current.recycle();
+            }
+            current = parent;
         }
         return false;
     }
