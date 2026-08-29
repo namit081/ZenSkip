@@ -43,14 +43,12 @@ public class AutoSkipHelper {
         return false;
     }
 
-    private static boolean isSkipText(String s) {
+    static boolean isSkipText(String s) {
         if (s == null) return false;
         String lower = s.toLowerCase().trim();
         return lower.contains("skip ad") || 
-               lower.contains("skip ads") || 
                lower.contains("skip video") || 
-               lower.equals("skip") ||
-               (lower.contains("skip") && lower.length() <= 12);
+               lower.equals("skip");
     }
 
     private static boolean tryClick(AccessibilityNodeInfo node) {
